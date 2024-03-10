@@ -175,6 +175,12 @@ app.use('/workers', authorizeWorker, workersRoutes);
 // });
 
 app.listen(3000, () => {
-  db.initDatabase();
+  db.initDatabase().then(() => {
+    console.log("Database initialized");
+  }).catch((err) => {
+    console.log(err);
+  });
+  
+
   console.log("listening");
 });
