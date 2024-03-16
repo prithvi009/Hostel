@@ -84,47 +84,6 @@ const WardenComplaints = () => {
   return (
 
     <>
-         {/* <h1 className="mt-4 ml-4 mb-1 text-2xl font-semibold">Complaints</h1>
-
-{complaints.length === 0 ? (
-        <p className="ml-4 mt-2 text-gray-600 text-xl ">
-          No complaints registered yet.
-        </p>
-      ) : (
-<div className="grid grid-cols-1 md:grid-cols-3 gap-3 ml-4 mr-4">
-  {complaints.map((complaint) => (
-    <div key={complaint.complaint_id} className="mt-5 flex flex-col bg-white border border-t-4 border-t-blue-600 shadow-sm rounded-xl">
-      <div className="p-4 md:p-5">
-        <h3 className="text-xl font-semibold text-gray-800">
-          {complaint.name}   (Room No. {complaint.room})
-        </h3>
-        <p>Created on {formatTimestamp1(complaint.created_at)}</p>
-        <p>
-  {complaint.assigned_at ? (
-    `Completed on ${formatTimestamp(complaint.assigned_at)}`
-  ) : null}
-</p>
-        <p className="mt-5 mb-3 text-gray-500 text-lg">
-          {complaint.description}
-        </p>
-       
-        <div className="flex-shrink-0">
-          <button
-            type="button"
-            className={clsx(
-              `text-white px-3 py-1 rounded-full mt-2 text-lg`,
-              complaint.is_completed ? "bg-green-500" : "bg-red-600"
-            )}
-            onClick={() => handleApproval(complaint.id)}
-          >
-            {complaint.is_completed ? "Completed" : "Not Completed"}
-          </button>
-        </div>
-      </div>
-    </div>
-  ))}
-</div> 
-     )} */}
 
 <div className="bg-gray-100 p-4 sm:p-8 md:p-10 h-screen">
   <h1 className="text-2xl font-bold mt-20 mb-8">Complaints</h1>
