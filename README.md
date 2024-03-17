@@ -66,9 +66,7 @@ This project utilizes Component Library Preline, ComponentLand for cards, pages,
 
 ![Student Dashboard Updated](./images/studentDashboardUpdated(8).png)
 
-### Schema Diagram
-  
-![Entity Relationship Diagram](./images/hostelDatabaseErDiagram.png)
+
 
 ## Getting Started
 
