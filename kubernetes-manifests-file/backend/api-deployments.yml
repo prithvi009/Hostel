@@ -1,61 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
-  name: api
-  namespace: hostel
-  labels: 
-    role: api
-    env: demo
-spec: 
-  replicas: 2
-  strategy: 
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
-  selector: 
+metadata:
+  name: node
+  labels:
+    app: node
+spec:
+  replicas: 1
+  selector:
     matchLabels:
-      role: api
+      app: node
   template:
     metadata:
       labels:
-        role: api
+        app: node
     spec:
-      imagePullSecrets:
-      - name: ecr-registry-secret
       containers:
-      - name: api
-        image: public.ecr.aws/l9g7c8b6/hostel-backend
-        imagePullPolicy: Always  # You may adjust the imagePullPolicy as needed
-        env:
-          - name: POSTGRES_DB
-            valueFrom:
-              configMapKeyRef:
-                name: postgres-secret
-                key: POSTGRES_DB
-          - name: POSTGRES_USER
-            valueFrom:
-              configMapKeyRef:
-                name: postgres-secret
-                key:  POSTGRES_USER
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                name: postgres-secret
-                key: POSTGRES_PASSWORD 
+      - name: node
+        image: prithvirajawatade/hostel-backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
-        livenessProbe: 
-          httpGet:
-            path: /ok
-            port: 3000
-          initialDelaySeconds: 2
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /ok
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-         
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: postgres-host
+        - name: POSTGRES_DBNAME
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: postgres-dbname
+      imagePullSecrets:
+        - name: regcred

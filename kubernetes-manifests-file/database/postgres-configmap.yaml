@@ -1,11 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-secret
-  namespace: hostel
-  labels:
-    app: postgres
+    name: postgres-configmap
 data:
-  POSTGRES_DB: cHNfZGIK
-  POSTGRES_USER: cHNfdXNlcnMK
-  POSTGRES_PASSWORD: U2VjdXJlUGFzc3dvcmQK
+    postgres-host: postgres-service:5432
+    postgres-dbname: api

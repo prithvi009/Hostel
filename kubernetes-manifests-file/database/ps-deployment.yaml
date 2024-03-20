@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: hostel
+  labels:
+    app: postgres
 spec:
   replicas: 1
   selector:
@@ -14,18 +15,28 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres
-          image: 'postgres:14'
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 5432
-          envFrom:
-            - configMapRef:
-                name: postgres-secret
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgresdata
-      volumes:
-        - name: postgresdata
-          persistentVolumeClaim:
-            claimName: postgres-volume-claim
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: postgres-host
+        - name: POSTGRES_DBNAME
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: postgres-dbname
