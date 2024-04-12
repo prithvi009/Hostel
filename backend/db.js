@@ -6,7 +6,7 @@ const pool = new Pool({
   password: "topsecure",
   host: "postgres-service",
   port: 5432,
-  database: "api"
+  database: "postgres"
 });
 
 pool.on("error", (error, client) => {

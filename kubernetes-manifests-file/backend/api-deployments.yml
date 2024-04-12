@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: prithvirajawatade/hostel-backend:latest
+        image: prithvirajawatade/hostel-backend1:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
