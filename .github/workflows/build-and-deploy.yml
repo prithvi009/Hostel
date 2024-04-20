@@ -21,8 +21,8 @@ jobs:
       
       - name: nav to backend
         run: |
-            chmod +x deploy.sh
-            ./deploy.sh
+            chmod +x ./scripts/deploy.sh
+            ./scripts/deploy.sh
       
       - name: Build Docker image
         run: docker build -t prithvirajawatade/backend:latest .
